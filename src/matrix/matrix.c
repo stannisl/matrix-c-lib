@@ -96,6 +96,25 @@ Matrix *sum_matrices(const Matrix *A, const Matrix *B) {
 }
 
 /**
+ * @brief Считает матрицу разницы двух матриц
+ * @param A Указатель на первую матрицу
+ * @param B Указатель на вторую матрицу
+ * @return Указатель на новую матрицу — результат сложения, либо NULL в случае
+ * ошибки
+ */
+Matrix *sub_matrices(const Matrix *A, const Matrix *B) {
+    Matrix *result = NULL;
+    if (isSizeEqual(A, B) && isCorrectMatrix(A) && isCorrectMatrix(B)) {
+        result = create_matrix(A->rows, A->cols);
+
+        for (int i = 0; i < A->rows; i++)
+            for (int j = 0; j < A->cols; j++)
+                result->data[i][j] = A->data[i][j] - B->data[i][j];
+    }
+    return result;
+}
+
+/**
  * @brief Умножает две матрицы
  * @param A Указатель на первую матрицу
  * @param B Указатель на вторую матрицу
@@ -158,6 +177,11 @@ MATRIX_TYPE determinant(const Matrix *A) {
     return det;
 }
 
+/**
+ * @brief Считает минор матрицы, без указанных rows cols
+ * @param matrix Указатель на матрицу
+ * @return Указатель на минорную матрицу
+ */
 Matrix *getMinorMatrix(const Matrix *A, int rows, int columns) {
     Matrix *minor = create_matrix(A->rows - 1, A->cols - 1);
 
@@ -176,10 +200,21 @@ Matrix *getMinorMatrix(const Matrix *A, int rows, int columns) {
     return minor;
 }
 
+/**
+ * @brief Вспомогательная функция для проверки корректности матрицы (валидный указатель и размеры)
+ * @param matrix Указатель на матрицу
+ * @return 1 - корректная, 0 - некорректная
+ */
 int isCorrectMatrix(const Matrix *A) {
     return !(A->cols < 1 || A->rows < 1 || (A->data == NULL));
 }
 
+/**
+ * @brief Вспомогательная функция для проверки на эквивалентность размеров матриц
+ * @param B Указатель на матрицу
+ * @param A Указатель на матрицу
+ * @return 1 - размеры одинаковые, 0 - размеры разные
+ */
 int isSizeEqual(const Matrix *A, const Matrix *B) {
     return (A->rows == B->rows && A->cols == B->cols);
 }

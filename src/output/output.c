@@ -5,7 +5,7 @@
  * @param matrix Указатель на матрицу
  * @param stream Выходной поток
  * @param callback Функция форматирования элемента
- * @return 0 в случае успеха, 1 в случае ошибки
+ * @return 0 в случае успеха, -1 в случае ошибки
  */
 int export_matrix(const Matrix *matrix, FILE *stream, matrixPrint callback) {
     int ret_code = 0;
