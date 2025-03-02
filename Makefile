@@ -60,9 +60,16 @@ $(BUILD_DIR):
 
 valgrind: $(TEST_EXEC)
 	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./$(TEST_EXEC)
-	@rm -f $(TEST_EXEC)
+	@rm -f $(TEST_EXEC) test_matrix.txt
+
+cppcheck:
+	cppcheck --enable=all --std=c11 -I$(INCLUDE_DIR) $(SOURCES) \
+	--suppress=missingIncludeSystem --suppress=unusedFunction --suppress=checkersReport --error-exitcode=1
+
+docs:
+	doxygen Doxyfile
 
 clean:
 	rm -rf $(BUILD_DIR)
 
-.PHONY: all test clean
+.PHONY: all test clean valgrind cppcheck docs

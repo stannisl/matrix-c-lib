@@ -10,6 +10,7 @@ Matrix *create_matrix(int rows, int cols) {
     Matrix *result = (Matrix *)malloc(sizeof(Matrix));
 
     if (rows <= 0 || cols <= 0) {
+        free(result);
         result = NULL;
     } else {
         result->rows = rows;
@@ -160,7 +161,7 @@ Matrix *transpose_matrix(const Matrix *matrix) {
 MATRIX_TYPE determinant(const Matrix *A) {
     MATRIX_TYPE det = 0;
 
-    if (A->rows != A->cols || !A)
+    if (!A || A->rows != A->cols)
         det = NAN;
     else {
         if (A->rows == 1)
