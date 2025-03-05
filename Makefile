@@ -32,7 +32,7 @@ all: $(TARGET)
 main: clean $(TARGET)
 	$(CC) $(CFLAGS) $(SRC_DIR)/main.c $(TARGET) -o main $(LIBS)
 	./main
-	# @rm main
+	@rm main
 
 $(TARGET): $(BUILD_DIR) $(OBJECTS)
 	ar -rcs $@ $(OBJECTS)
