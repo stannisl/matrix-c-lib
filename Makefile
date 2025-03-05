@@ -32,7 +32,7 @@ all: $(TARGET)
 main: clean $(TARGET)
 	$(CC) $(CFLAGS) $(SRC_DIR)/main.c $(TARGET) -o main $(LIBS)
 	./main
-	@rm main
+	# @rm main
 
 $(TARGET): $(BUILD_DIR) $(OBJECTS)
 	ar -rcs $@ $(OBJECTS)
@@ -65,6 +65,10 @@ valgrind: $(TEST_EXEC)
 cppcheck:
 	cppcheck --enable=all --std=c11 -I$(INCLUDE_DIR) $(SOURCES) \
 	--suppress=missingIncludeSystem --suppress=unusedFunction --suppress=checkersReport --error-exitcode=1
+
+format:
+	@clang-format -i $$(find . -name "*.c")
+	@clang-format -i $$(find . -name "*.h")
 
 docs:
 	doxygen Doxyfile

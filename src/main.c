@@ -1,7 +1,5 @@
-
 #include "matrix/matrix.h"
 #include "output/output.h"
-#include <assert.h>
 
 int main() {
     Matrix *A = load_matrix_from_file("matrix_data/matrix_a.txt");

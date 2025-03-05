@@ -13,8 +13,8 @@ int export_matrix(const Matrix *matrix, FILE *stream, matrixPrint callback) {
     if (!matrix || !stream || !callback)
         ret_code = -1;
 
-    for (int i = 0; i < !ret_code && matrix->rows; i++) {
-        for (int j = 0; j < !ret_code && matrix->cols; j++) {
+    for (int i = 0; !ret_code && i < matrix->rows; i++) {
+        for (int j = 0; !ret_code && j < matrix->cols; j++) {
             int result = callback(stream, matrix->data[i][j]);
             if (result < 0)
                 ret_code = 1;
